@@ -5,7 +5,8 @@
 #' @param seasons A character vector of the seasons to be selected, ie some of "MAM", "JJA", "SOM" and "DDF" (or potentionally a custom defined season)
 #' 
 #' @return A Field or data.table depending on the type of the input x.
-#' @author Matthew Forrest \email{matthew.forrest@@senckenberg.de} 
+#' @author Matthew Forrest \email{matthew.forrest@@senckenberg.de}
+#' @export
 
 selectSeasons <- function(x, seasons){
   
@@ -28,6 +29,7 @@ selectSeasons <- function(x, seasons){
   
   # subset the data.table
   output.dt <- subset(input.dt, Season %in% seasons)
+  setKeyDGVM(output.dt)
 
   # and return
   if(is.Field(x)) {

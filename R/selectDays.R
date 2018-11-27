@@ -5,7 +5,8 @@
 #' @param days A numeric vector of the days to be selected
 #' 
 #' @return A Field or data.table depending on the type of the input x.
-#' @author Matthew Forrest \email{matthew.forrest@@senckenberg.de} 
+#' @author Matthew Forrest \email{matthew.forrest@@senckenberg.de}
+#' @export
 
 selectDays <- function(x, days){
   
@@ -28,7 +29,8 @@ selectDays <- function(x, days){
   
   # subset the data.table
   output.dt <- subset(input.dt, Day %in% days)
-
+  setKeyDGVM(output.dt)
+  
   # and return
   if(is.Field(x)) {
     x@data <- output.dt

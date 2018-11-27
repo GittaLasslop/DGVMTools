@@ -48,7 +48,7 @@ compareLayers <- function(field1,
   # comparing one layer from each
   if(length(layers1) == 1){
     type1 <- class(field1@data[[layers1]])
-    type2 <- class(field1@data[[layers2]])
+    type2 <- class(field2@data[[layers2]])
     if(type1 == type2){
       if(type1 == "numeric") {
         single <- TRUE
@@ -60,7 +60,7 @@ compareLayers <- function(field1,
       }
     }
     else {
-      stop("Layer type don't match, check your layers1 and layers2 arguemnts and your input Fields")
+      stop("Layer type don't match, check your layers1 and layers2 arguments and your input Fields")
     }
   }
   else {
@@ -105,9 +105,11 @@ compareLayers <- function(field1,
   ### Easy-life case, both objects are on exactly the same domain
   if(identical(getDimInfo(field1, "full"), getDimInfo(field2, "full"))) {
     if(verbose) message("Easy life! Both fields have the same dimensions, can do a data.table join operation.")
+    print(key(layer.field1@data))
+    print(key(layer.field2@data))
     new.data <- layer.field1@data[layer.field2@data] 
-    
   }
+  
   ### Else, not-so-easy-life is having to check the domains and keeping points or not
   else {
     if(verbose) message("Not so easy life! Fields don't have the same dimensions, doing a copyLayers() operation.")
