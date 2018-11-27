@@ -167,8 +167,8 @@ getField <- function(source,
   
   ### CASE 2 - ELSE CALL THE MODEL SPECIFIC FUNCTIONS TO READ THE RAW MODEL OUTPUT AND THEN AVERAGE IT BELOW 
   if(verbose) message(paste("Field ", target.field.id, " not already saved (or 'read.full' argument set to TRUE), so reading full data file to create the field now.", sep = ""))
-  
-  data.list <- source@format@getField(source, quant, sta.info, verbose, ...)
+  data.list <- source@format@getField(source, quant, sta.info, verbose = verbose, ...)
+  print(2)
   this.dt <- data.list[["dt"]]
   setKeyDGVM(this.dt)
   actual.sta.info <- data.list[["sta.info"]]
