@@ -12,8 +12,9 @@
 #' @return A vector of character strings of the names of the layers
 #' @name layer-names-methods
 #' @rdname names
-#' @exportMethod 
-#' @author Matthew Forrest \email{matthew.forrest@@senckenberg.de}   
+#' @author Matthew Forrest \email{matthew.forrest@@senckenberg.de}
+#' @exportMethod names
+#' @exportMethod layers
 NULL
 
 #' @rdname names 
@@ -38,6 +39,9 @@ setMethod("names", signature(x="Comparison"), function(x) {
 })
 
 # first define (redefine) the generic
+#' @rdname names 
+#' @name layers
+#' @exportMethod layers
 if (!isGeneric("layers")) {
   setGeneric("layers", function(x) standardGeneric("layers"))
 }
@@ -59,6 +63,16 @@ setMethod("layers", signature(x="Comparison"), function(x) {
   
   # get all column names, remove the spatial and temporal dimensions and return
   col.names <- names(x@data)
+  col.names <- col.names[!col.names %in% getDimInfo(x)]
+  return(col.names)
+  
+})
+
+#' @rdname names
+setMethod("layers", signature(x="data.table"), function(x) {
+  
+  # get all column names, remove the spatial and temporal dimensions and return
+  col.names <- names(x)
   col.names <- col.names[!col.names %in% getDimInfo(x)]
   return(col.names)
   

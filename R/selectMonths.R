@@ -5,7 +5,8 @@
 #' @param months A numeric vector of the months to be selected (Can also be abbreviations, "Jan", "Feb" etc... )
 #' 
 #' @return A Field or data.table depending on the type of the input x.
-#' @author Matthew Forrest \email{matthew.forrest@@senckenberg.de} 
+#' @author Matthew Forrest \email{matthew.forrest@@senckenberg.de}
+#' @export
 
 selectMonths <- function(x, months){
   
@@ -49,7 +50,8 @@ selectMonths <- function(x, months){
   
   # subset the data.table
   output.dt <- subset(input.dt, Month %in% months)
-
+  setKeyDGVM(output.dt)
+  
   # and return
   if(is.Field(x)) {
     x@data <- output.dt

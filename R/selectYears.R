@@ -7,6 +7,7 @@
 #' @param last The last year to be selected (numeric)
 #' 
 #' @return A Field or data.table depending on the type of the input x.
+#' @export
 #' @author Matthew Forrest \email{matthew.forrest@@senckenberg.de} 
 
 selectYears <- function(x, first, last){
@@ -17,7 +18,7 @@ selectYears <- function(x, first, last){
   # check input class
   if(is.Field(x)) input.dt <- x@data 
   else if(is.data.table(x))  input.dt <- x
-  else stop("Called for an object which is not a Data/Model object or a data.table.  Exiting...")
+  else stop("Called for an object which is not a Field or a data.table.  Exiting...")
   
   # 
   if(first > last) stop("Error, first year must be smaller or equal to the last year!")
@@ -34,6 +35,7 @@ selectYears <- function(x, first, last){
   
   # subset the data.table
   output.dt <- subset(input.dt, Year >= first & Year <= last)
+  setKeyDGVM(output.dt)
   rm(input.dt)
   gc()
   
